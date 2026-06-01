@@ -53,20 +53,8 @@ steps:
     script: |
       #!/bin/bash
       set -e
-
-      echo "Workspace content:"
-      ls -R $(workspaces.source.path)
-
-      cd $(workspaces.source.path)
-
       python -m pip install --upgrade pip wheel
-
-      if [ -f requirements.txt ]; then
-        pip install -r requirements.txt
-      else
-        echo "No requirements.txt found!"
-      fi
-
+      pip install -r requirements.txt
       nosetests $(params.args)
 
 ---
