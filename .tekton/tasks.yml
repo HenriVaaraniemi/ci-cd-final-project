@@ -53,8 +53,18 @@ spec:
       script: |
         #!/bin/bash
         set -e
+        pwd
+        ls -la
+        find . -name requirements.txt
         python -m pip install --upgrade pip wheel
-        pip install -r requirements.txt
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        else
+          echo "requirements.txt NOT FOUND in working directory"
+          exit 1
+        fi
+        echo "=== RUNNING TESTS ==="
+        pip install nose
         nosetests $(params.args)
 ---
 apiVersion: tekton.dev/v1
